@@ -1,124 +1,72 @@
-```html
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>גלריית תמונות</title>
+  <meta charset="UTF-8">
+  <title>גלריה</title>
 
   <style>
     body {
-      margin: 0;
-      padding: 30px;
-      background: #0f172a;
-      font-family: Arial, sans-serif;
-      color: white;
+      font-family: Arial;
       text-align: center;
+      background: #111;
+      color: white;
     }
 
-    h1 {
-      margin-bottom: 25px;
-      font-size: 32px;
-    }
-
-    .buttons {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-      gap: 12px;
-      max-width: 900px;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 10px;
+      max-width: 600px;
       margin: auto;
     }
 
-    .buttons button {
-      padding: 16px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: white;
+    button {
+      padding: 10px;
       font-size: 18px;
-      font-weight: bold;
       cursor: pointer;
-      transition: 0.25s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
-    .buttons button:hover {
-      transform: scale(1.08);
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    }
-
-    .image-container {
-      margin-top: 35px;
-    }
-
-    .image-container img {
-      max-width: 90%;
-      max-height: 70vh;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    img {
+      margin-top: 20px;
+      max-width: 80%;
       display: none;
     }
 
-    .image-container img.active {
-      display: inline-block;
-      animation: fade 0.4s ease;
-    }
-
-    @keyframes fade {
-      from {
-        opacity: 0;
-        transform: scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    img.active {
+      display: block;
     }
   </style>
 </head>
+
 <body>
 
-  <h1>גלריית תמונות</h1>
+<h1>גלריית תמונות</h1>
 
-  <div class="buttons" id="buttons"></div>
+<div class="grid" id="buttons"></div>
 
-  <div class="image-container" id="imageContainer"></div>
+<div id="viewer"></div>
 
-  <script>
-    const buttonsContainer = document.getElementById("buttons");
-    const imageContainer = document.getElementById("imageContainer");
+<script>
+const buttons = document.getElementById("buttons");
+const viewer = document.getElementById("viewer");
 
-    // יצירת כפתורים ותמונות
-    for (let i = 1; i <= 40; i++) {
+for (let i = 1; i <= 40; i++) {
+  const btn = document.createElement("button");
+  btn.innerText = i;
 
-      // יצירת כפתור
-      const button = document.createElement("button");
-      button.textContent = i;
+  const img = document.createElement("img");
+  img.src = `images/${i}.jpg`;
 
-      // יצירת תמונה
-      const img = document.createElement("img");
+  viewer.appendChild(img);
 
-      // שנה כאן לפי שמות הקבצים שלך
-      // לדוגמה: images/1.jpg
-      img.src = `images/${i}.jpg`;
+  btn.onclick = () => {
+    document.querySelectorAll("img").forEach(im => im.classList.remove("active"));
+    img.classList.add("active");
+  };
 
-      imageContainer.appendChild(img);
-
-      button.addEventListener("click", () => {
-
-        // הסתרת כל התמונות
-        document.querySelectorAll(".image-container img")
-          .forEach(image => image.classList.remove("active"));
-
-        // הצגת התמונה הנבחרת
-        img.classList.add("active");
-      });
-
-      buttonsContainer.appendChild(button);
-    }
-  </script>
+  buttons.appendChild(btn);
+}
+</script>
 
 </body>
 </html>
-```
-index.html
