@@ -1,0 +1,124 @@
+```html
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>גלריית תמונות</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      background: #0f172a;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      font-size: 32px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 12px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .buttons button {
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .buttons button:hover {
+      transform: scale(1.08);
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    }
+
+    .image-container {
+      margin-top: 35px;
+    }
+
+    .image-container img {
+      max-width: 90%;
+      max-height: 70vh;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      display: none;
+    }
+
+    .image-container img.active {
+      display: inline-block;
+      animation: fade 0.4s ease;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>גלריית תמונות</h1>
+
+  <div class="buttons" id="buttons"></div>
+
+  <div class="image-container" id="imageContainer"></div>
+
+  <script>
+    const buttonsContainer = document.getElementById("buttons");
+    const imageContainer = document.getElementById("imageContainer");
+
+    // יצירת כפתורים ותמונות
+    for (let i = 1; i <= 40; i++) {
+
+      // יצירת כפתור
+      const button = document.createElement("button");
+      button.textContent = i;
+
+      // יצירת תמונה
+      const img = document.createElement("img");
+
+      // שנה כאן לפי שמות הקבצים שלך
+      // לדוגמה: images/1.jpg
+      img.src = `images/${i}.jpg`;
+
+      imageContainer.appendChild(img);
+
+      button.addEventListener("click", () => {
+
+        // הסתרת כל התמונות
+        document.querySelectorAll(".image-container img")
+          .forEach(image => image.classList.remove("active"));
+
+        // הצגת התמונה הנבחרת
+        img.classList.add("active");
+      });
+
+      buttonsContainer.appendChild(button);
+    }
+  </script>
+
+</body>
+</html>
+```
+index.html
