@@ -5,7 +5,6 @@
 <title>גלריה</title>
 
 <style>
-
 body{
   margin:0;
   background:#111;
@@ -62,13 +61,12 @@ img{
   border-radius:20px;
   box-shadow:0 0 20px rgba(0,0,0,.5);
   opacity:0;
-  transition:.3s;
+  transition:opacity .3s ease;
 }
 
 img.show{
   opacity:1;
 }
-
 </style>
 </head>
 
@@ -87,22 +85,24 @@ img.show{
 const buttons = document.getElementById("buttons");
 const mainImage = document.getElementById("mainImage");
 
-for(let i=1;i<=40;i++){
+for(let i = 1; i <= 40; i++){
 
   const btn = document.createElement("button");
   btn.textContent = i;
 
-  btn.addEventListener("click",()=>{
+  btn.addEventListener("click", () => {
 
+    // fade out
     mainImage.classList.remove("show");
 
-    setTimeout(()=>{
-      mainImage.src = `images/${i}.jpg`;
+    setTimeout(() => {
+      mainImage.src = `images/${i}.png`; // ✅ PNG
       mainImage.classList.add("show");
-    },100);
+    }, 100);
 
+    // active button
     document.querySelectorAll("button")
-      .forEach(b=>b.classList.remove("active"));
+      .forEach(b => b.classList.remove("active"));
 
     btn.classList.add("active");
   });
